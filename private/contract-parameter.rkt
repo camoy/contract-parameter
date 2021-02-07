@@ -62,6 +62,6 @@
            (raise-blame-error blm
                               #:missing-party neg
                               val
-                              "contract parameter accumulator became false"))
+                              "contract parameter state became false"))
          (set-box! acc-box acc*)
          val]))))

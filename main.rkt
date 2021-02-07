@@ -60,11 +60,51 @@
     (exactly-once/c foo/c)
     (+ (foo 42) (foo 42)))
 
+  (define prompt (make-continuation-prompt-tag))
+
+  (define/contract (exactly-once-actually-twice-prompt)
+    (exactly-once/c foo/c)
+    (+ (foo 42)
+       (foo 42)
+       (abort-current-continuation prompt)))
+
+  (define (exactly-once-early/c ctc)
+    (define (before _) 0)
+    (define (during _ acc)
+      (and (zero? acc)
+           (add1 acc)))
+    (parameterize/c ([ctc during]
+                     #:before before)
+                    any/c))
+
+  (define/contract (exactly-once-actually-twice-early)
+    (exactly-once-early/c foo/c)
+    (+ (foo 42) (foo 42)))
+
+  (define/contract (exactly-once-actually-twice-early-prompt)
+    (exactly-once-early/c foo/c)
+    (+ (foo 42)
+       (foo 42)
+       (abort-current-continuation prompt)))
+
   (chk
    (foo 42) 42
    (good) 42
    #:x (bad) "none/c allows no values"
+
    #:x (exactly-once-actually-none) "after clause failed"
    (exactly-once-actually-once) 42
    #:x (exactly-once-actually-twice) "after clause failed"
+   #:t (call-with-continuation-prompt
+        exactly-once-actually-twice-prompt
+        prompt
+        (λ () #t))
+
+   #:x (exactly-once-actually-twice-early)
+   "contract parameter state became false"
+   #:x (call-with-continuation-prompt
+        exactly-once-actually-twice-early-prompt
+        prompt
+        (λ () #t))
+   "contract parameter state became false"
    ))
