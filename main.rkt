@@ -107,4 +107,7 @@
         prompt
         (λ () #t))
    "contract parameter state became false"
+
+   #:x (contract (exactly-once/c foo/c) 42 'pos 'neg)
+   "procedure?"
    ))

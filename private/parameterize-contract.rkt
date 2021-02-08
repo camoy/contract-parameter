@@ -26,6 +26,7 @@
   #:property prop:contract
   (build-contract-property
    #:name (η parameterize-contract-name)
+   #:first-order procedure?
    #:late-neg-projection (η parameterize-contract-late-neg)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -49,6 +50,11 @@
     (define blm* (blame-add-context blm "the body of"))
     (define proj (late-neg blm*))
     (λ (raw-proc neg)
+      (unless (procedure? raw-proc)
+        (raise-blame-error
+         blm* raw-proc
+         '(expected: "procedure?" given: "~e")
+         raw-proc))
       (define proc (proj raw-proc neg))
       (λ args
         (define acc-box (box #f))
