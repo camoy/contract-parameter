@@ -74,7 +74,7 @@ create a contract parameter
 called @racket[prohibitable/c].
 What it checks depends on the context.
 By default,
-it checks @racket[integer?].
+it checks @racket[any/c].
 
 @examples[#:eval evaluator #:no-result
 (define prohibitable/c (make-contract-parameter any/c))]
