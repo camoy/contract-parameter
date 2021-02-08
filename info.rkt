@@ -1,8 +1,19 @@
 #lang info
+
+;; General
+
 (define collection "contract-parameter")
-(define deps '("base"))
-(define build-deps '("scribble-lib" "racket-doc" "rackunit-lib"))
-(define scribblings '(("scribblings/contract-parameter.scrbl" ())))
-(define pkg-desc "Description Here")
+(define pkg-desc "Dynamically bound contracts.")
 (define version "0.0")
 (define pkg-authors '(camoy))
+(define scribblings '(("scribblings/contract-parameter.scrbl" ())))
+
+;; Dependencies
+
+(define deps '("base"))
+(define build-deps
+  '("chk-lib"
+    "sandbox-lib"
+    "scribble-lib"
+    "racket-doc"
+    "rackunit-lib"))
