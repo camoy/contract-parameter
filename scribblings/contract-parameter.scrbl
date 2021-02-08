@@ -34,8 +34,7 @@
     #:author (authors "Christophe Scholliers"
                       "Éric Tanter"
                       "Wolfgang De Meuter")
-    #:location (proceedings-location "Science of Computer Programming"
-                                     #:pages '(360 375))
+    #:location (proceedings-location "Science of Computer Programming")
     #:date 2013))
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -234,3 +233,5 @@ instead of just once after the function returns.
 @defproc[(contract-parameter? [v any/c]) boolean?]{
   Returns whether the argument is a contract parameter.
 }
+
+@generate-bibliography[]
