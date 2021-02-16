@@ -10,7 +10,10 @@
 
 ;; Dependencies
 
-(define deps '("base"))
+(define deps
+  '("contract-etc"
+    "base"))
+
 (define build-deps
   '("chk-lib"
     "sandbox-lib"
