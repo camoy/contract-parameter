@@ -23,13 +23,12 @@
   (define-splicing-syntax-class binding
     #:description "parameterize/c binding"
     #:attributes (norm)
-    (pattern [param ctc]
+    (pattern [param val:expr]
              #:declare param
-             (expr/c #'contract-parameter? #:name "contract parameter")
-             #:declare ctc
-             (expr/c #'contract? #:name "contract")
+             (expr/c #'(or/c contract-parameter? parameter?)
+                     #:name "contract parameter or parameter")
              #:with norm
-             #'(make-binding param.c ctc.c))))
+             #'(make-binding param.c val))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; definitions

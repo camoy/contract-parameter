@@ -3,7 +3,7 @@
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;; require
 
-@require[@for-label["../main.rkt"
+@require[@for-label[contract-parameter
                     racket/base
                     racket/contract
                     racket/function]
@@ -15,10 +15,10 @@
 @;; example evaluator
 
 @(define evaluator
-  (make-base-eval
-    '(require racket/contract
-              racket/function
-              contract-parameter)))
+   (make-base-eval
+     '(require contract-parameter
+               racket/contract
+               racket/function)))
 
 @;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 @;; bibliography
@@ -121,10 +121,13 @@ and @racket[bad-prohibit]:
 
 @section{Reference}
 
-@defform[(parameterize/c [contract-parameter-expr contract-expr] ...+)]{
+@(define ref '(lib "scribblings/reference/reference.scrbl"))
+@defform[(parameterize/c [parameter expr] ...+)]{
   Returns a parameterize contract that protects a procedure.
-  Within the dynamic extent of this procedure,
-  each of the contract parameters will be bound to the given contract.
+  Within the dynamic extent of this procedure:
+  contract parameters will be bound to the given contract,
+  and @seclink["parameters" #:doc ref]{parameters}
+  will be bound to the given value.
 }
 
 @defproc[(make-contract-parameter [contract contract?]

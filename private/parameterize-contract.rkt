@@ -49,6 +49,7 @@
         (let go ([bindings bindings])
           (match bindings
             ['() (apply proc args)]
-            [(cons (binding (contract-parameter param _) ctc) bindings-rest)
+            [(cons (binding (or (contract-parameter param _) param) ctc)
+                   bindings-rest)
              (parameterize ([param ctc])
                (go bindings-rest))]))))))
